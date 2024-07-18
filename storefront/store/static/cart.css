@@ -1,0 +1,100 @@
+.cart-dropdown {
+    position: absolute;
+    top: 100%;
+    /* Adjust if necessary to position just below the cart icon */
+    right: 0;
+    width: 20rem;
+    /* Adjust the width as necessary */
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    /* Adjusted z-index to ensure it's below the search bar */
+    display: none;
+    /* Initially hidden */
+}
+
+.cart-item {
+    padding: 0.25rem;
+    /* Reduce padding around cart items */
+    font-size: 0.75rem;
+    /* Reduce font size for text */
+}
+
+.cart-item-image {
+    width: 2rem;
+    /* Reduce image size */
+    height: 2rem;
+    object-fit: cover;
+}
+
+.cart-item-title {
+    flex-grow: 1;
+    margin-left: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cart-item-title {
+    font-size: 0.875rem;
+    /* Use Tailwind text sizes if preferred */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-quantity,
+.cart-item-price {
+    margin-left: 0.75rem;
+}
+
+.cart-summary {
+    position: relative;
+    /* This is necessary to position the quantity indicator relative to the cart icon */
+    cursor: pointer;
+}
+
+
+/* Show the cart dropdown when hovering over the cart summary */
+.cart-summary:hover+.cart-dropdown {
+    display: block;
+}
+
+.cart-icon {
+    height: 3rem;
+    /* Increase size of cart icon */
+    width: 3rem;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Keep the image within bounds */
+}
+
+.cart-quantity {
+    position: absolute;
+    bottom: 0px;
+    /* Adjust as necessary */
+    right: 0px;
+    transform: translate(50%, -50%);
+    /* Center the circle at the bottom right of the cart icon */
+    height: 1.5rem;
+    /* Size of the circle */
+    width: 1.5rem;
+    /* Size of the circle */
+    padding: 0;
+    /* Adjust padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Make it round */
+    font-size: 0.75rem;
+    /* Adjust font size as needed */
+    line-height: normal;
+    /* Adjust line height as needed */
+    background-color: #ff3d00;
+    /* Background color of the circle */
+    color: white;
+    /* Text color */
+}

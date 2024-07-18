@@ -1,0 +1,179 @@
+/* Core styles */
+@import 'core/Index.css';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f4f4; /* or any other color you prefer */
+}
+
+
+
+
+/* Header logo small like in the example */
+
+/* Main product styling */
+.product-detail-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    padding: 20px;
+    margin: auto; /* Center the product detail on the page */
+    max-width: 1200px; /* or any other max-width you prefer */
+}
+
+/* Product gallery and info side by side */
+.product-content {
+    display: flex;
+    gap: 2em; /* Increase the gap for more space between the image and the text */
+    align-items: flex-start; /* Align the items to the top */
+    justify-content: space-between; /* This will use the available space better */
+    background: #ffffff; /* For a light background */
+    padding: 40px; /* Increase padding for larger area */
+    border-radius: 20px; /* Rounded corners like in the example */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the product */
+}
+
+/* Image adjustments */
+.product-gallery .primary-image {
+    flex: 1; /* Allows the gallery to grow */
+    border-radius: 0%; /* Remove roundness */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow behind image */
+    width: 30vw; /* Increase width for larger image */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+}
+
+/* Title and price adjustments */
+.product-detail-header {
+    text-align: left; /* Align to the left */
+    padding-left: 20px; /* Space from the left edge */
+    margin-bottom: 20px; /* Increase spacing below the header */
+
+}
+
+.store-name {
+    font-size: 1em; /* Increase size for readability */
+    color: #757575;
+    text-transform: uppercase; /* Capital letters like in the example */
+    letter-spacing: 1px; /* More spacing between letters */
+    margin-bottom: 5px; /* Space above the product title */
+}
+
+.product-info {
+    flex: 1; /* Take up the remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* This will distribute space vertically between items */
+    max-width: 600px; /* Or as much as needed */
+        padding-right: 20px; /* Adjust as needed to give more space */
+    padding-left: 20px; /* Adjust as needed to give more space */
+}
+
+
+.product-title {
+    font-size: 2.5rem; /* Larger font size */
+    font-weight: bold; /* Increase weight if needed */
+    line-height: 1.2; /* Adjust line spacing to suit larger font */
+    margin-bottom: 1rem; /* Add space below the title */
+    margin-bottom: 10px; /* Increase spacing below the title */
+    text-align: left; /* Ensure the text is aligned to the left */
+
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add an ellipsis if the text is too long */
+    max-width: 100%; /* Allow the text to fill the width of .product-info */
+}
+
+
+.product-price {
+    font-size: 2rem;
+    font-weight: normal; /* Adjust weight if needed */
+    margin-top: 5px; /* Space between title and price */
+    margin-bottom: 20px; /* Increase spacing below the price */
+
+}
+
+.product-purchase-info {
+    flex-grow: 1; /* Allow this area to grow */
+    width: 100%; /* Use up all available width */
+}
+
+/* Button and quantity selector adjustments */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quantity-selector button,
+.add-to-cart-btn {
+    width: 100%; /* Full width for these elements */
+    background-color: #6200ee;
+    color: white;
+    border: none;
+    border-radius: 15px; /* Rounded edges */
+    padding: 10px 20px; /* Increase padding for larger buttons */
+    font-size: 1em; /* Increase font size for readability */
+    margin: 0 5px;
+    cursor: pointer;
+
+}
+
+.quantity-selector input {
+    width: 60px; /* Increase width for larger input */
+    text-align: center;
+    border-radius: 10px; /* Rounded edges */
+    padding: 10px; /* Increase padding for larger input */
+    margin: 0 5px;
+}
+
+.add-to-cart-btn {
+    padding: 1rem 0; /* More padding for larger button */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #5300eb;
+}
+
+/* Thumbnails */
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.thumbnail-image {
+    width: 10vw; /* Adjust thumbnail size */
+    height: 10vw;
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid transparent; /* Adjust as needed */
+    cursor: pointer;
+}
+
+.thumbnail-image:hover,
+.thumbnail-image.active-thumbnail {
+    border-color: #6200ee; /* Highlight color when hovered or active */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-content {
+        flex-direction: column;
+    }
+
+    .product-gallery,
+    .product-info {
+        width: 100%;
+    }
+
+    .product-detail-header,
+    .product-price,
+    .add-to-cart-btn,
+    .quantity-selector button,
+    .quantity-selector input {
+        text-align: center;
+        padding-left: 0;
+    }
+}

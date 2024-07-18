@@ -1,0 +1,31 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>Login Redirect - MeowMart</title>
+</head>
+
+<body class="has-background-light">
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+                        <div class="box">
+                            <h1 class="title">{% trans "Login Redirect" %}</h1>
+                            <p>{% blocktrans %}You are being redirected... If you are not redirected automatically,
+                                click <a href="{{ redirect_url }}?next={{ request.GET.next }}">here</a>.{% endblocktrans
+                                %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

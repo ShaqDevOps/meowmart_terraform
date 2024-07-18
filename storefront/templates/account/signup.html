@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>Sign Up - MeowMart</title>
+    <style>
+        .google-btn {
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .google-btn:hover {
+            background-color: #444;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .signin-link {
+            color: #3273dc;
+            /* Bulma primary color */
+        }
+
+        .signin-link:hover {
+            color: #275bb5;
+            /* Darker shade for hover */
+        }
+    </style>
+</head>
+
+<body class="has-background-light">
+    {% include 'store/header_without_cart_without_signin.html' %}
+
+    <div class="columns is-centered is-vcentered min-vh-100">
+        <div class="column is-one-third">
+            <form class="box" id="signupForm" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label" for="username">Username</label>
+                    <div class="control">
+                        <input class="input" id="username" name="username" type="text" placeholder="Username" required>
+                    </div>
+                    {% if form.username.errors %}
+                    <p class="help is-danger">{{ form.username.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label" for="email">Email</label>
+                    <div class="control">
+                        <input class="input" id="email" name="email" type="email" placeholder="Email" required>
+                    </div>
+                    {% if form.email.errors %}
+                    <p class="help is-danger">{{ form.email.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label" for="first_name">First Name</label>
+                    <div class="control">
+                        <input class="input" id="first_name" name="first_name" type="text" placeholder="First Name"
+                            required>
+                    </div>
+                    {% if form.first_name.errors %}
+                    <p class="help is-danger">{{ form.first_name.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label" for="last_name">Last Name</label>
+                    <div class="control">
+                        <input class="input" id="last_name" name="last_name" type="text" placeholder="Last Name"
+                            required>
+                    </div>
+                    {% if form.last_name.errors %}
+                    <p class="help is-danger">{{ form.last_name.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label" for="password1">Password</label>
+                    <div class="control">
+                        <input class="input" id="password1" name="password1" type="password" placeholder="Password"
+                            required>
+                    </div>
+                    {% if form.password1.errors %}
+                    <p class="help is-danger">{{ form.password1.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label" for="password2">Password Confirmation</label>
+                    <div class="control">
+                        <input class="input" id="password2" name="password2" type="password"
+                            placeholder="Password Confirmation" required>
+                    </div>
+                    {% if form.password2.errors %}
+                    <p class="help is-danger">{{ form.password2.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="field has-text-centered">
+                    <p class="control">
+                        <button class="button is-link" type="submit">Sign Up</button>
+                    </p>
+                </div>
+            </form>
+            <div class="has-text-centered mt-4">
+                <p>Already have an account? <a class="signin-link" href="{% url 'account_login' %}">Sign in!</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer has-text-centered">
+        <div class="content has-text-grey">
+            <p>© 2023 MeowMart</p>
+        </div>
+    </footer>
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+    </script>
+    {% include 'store/footer.html' %}
+</body>
+
+</html>

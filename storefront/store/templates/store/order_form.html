@@ -1,0 +1,63 @@
+<!-- order_form.html -->
+<style>
+    .custom-select {
+        background-color: #1a202c;
+        /* Dark background */
+        color: white;
+        /* White text */
+        border-color: #2d3748;
+        /* Border color */
+    }
+
+    .custom-select option {
+        background-color: #1a202c;
+        /* Dark background for options */
+        color: white;
+        /* White text for options */
+    }
+</style>
+
+<form method="post" action="{% url 'store:post_order' %}"
+    class="bg-white p-8 border border-gray-200 rounded-lg shadow-md">
+    {% csrf_token %}
+    <div class="mb-4">
+        <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+        <input type="text" id="phone" name="phone"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required>
+    </div>
+    <div class="mb-4">
+        <label for="street" class="block text-gray-700 text-sm font-bold mb-2">Street Address:</label>
+        <input type="text" id="street" name="street"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required>
+    </div>
+    <div class="mb-4">
+        <label for="city" class="block text-gray-700 text-sm font-bold mb-2">City:</label>
+        <input type="text" id="city" name="city"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required>
+    </div>
+    <div class="mb-4">
+        <label for="state" class="block text-gray-700 text-sm font-bold mb-2">State:</label>
+        {{ form.state }}
+    </div>
+    <input type="hidden" name="cart_id" value="{{ cart.id }}">
+    <button type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        id="submitOrderButton">Place Order</button>
+</form>
+
+<script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find the form by its ID
+        const orderForm = document.getElementById('orderForm');
+
+        // Attach an event listener to the form submission
+        orderForm.addEventListener('submit', function () {
+            // Remove 'cart_id' from local storage
+            localStorage.removeItem('cart_id');
+        });
+    });
+</script>

@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - MeowMart</title>
+    <link href="{% static 'cart.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-item {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-item.active {
+            background-color: #d3d3d3;
+            color: #a1a1a1;
+        }
+
+        .custom-select {
+            background-color: #1a202c;
+            /* Dark background */
+            color: white;
+            /* White text */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header class="bg-white p-2 shadow">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <!-- Logo -->
+                <div class="flex items-center flex-shrink-0">
+                    <a href="{% url 'core:Home' %}">
+                        <img src="{% static 'logo.png' %}" alt="MeowMart Logo" class="h-16 w-18 md:h-24 md:w-26">
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{% url 'store:products_page' %}"
+                        class="text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">Products</a>
+                    <a href="{% url 'core:profile' %}"
+                        class="text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">My
+                        Account</a>
+                </nav>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button onclick="toggleMobileMenu(event)" class="text-black focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16m-16 6h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- MOBILE MENU ELEMENTS -->
+        <div id="mobile-menu" class="hidden">
+            <a href="{% url 'store:products_page' %}"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-purple-600 nav-item">Products</a>
+            <a href="{% url 'core:profile' %}"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:text-purple-600 nav-item">My
+                Account</a>
+        </div>
+    </header>
+    <script>
+        function toggleMobileMenu(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('hidden');
+            }
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

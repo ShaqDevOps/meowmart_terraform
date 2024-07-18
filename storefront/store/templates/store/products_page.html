@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - MeowMart</title>
+    <link href="{% static 'cart.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    {% include 'store/header_with_tailwinds.html' %}
+
+    <h1 class="text-4xl text-center text-black py-8 font-bold">Products</h1>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {% for product in products %}
+            <div
+                class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
+                <a href="{% url 'store:products-detail' pk=product.id %}">
+                    {% with product.images.all|first as first_image %}
+                    {% if first_image %}
+                    <img class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover" src="{{ first_image.image.url }}"
+                        alt="{{ product.title }}">
+                    {% else %}
+                    <img class="w-full h-40 sm:h-48 md:h-56 lg:h-64 object-cover"
+                        src="{% static 'default-product-image.jpg' %}" alt="Default Image">
+                    {% endif %}
+                    {% endwith %}
+                    <div class="p-2 sm:p-3 md:p-4">
+                        <h3 class="text-sm sm:text-md md:text-lg font-semibold">{{ product.title }}</h3>
+                        <p class="text-green-400 text-lg sm:text-xl font-bold">{{ product.unit_price }}</p>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <p class="text-center col-span-full">No products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'store/footer.html' %}
+
+
+</body>
+
+</html>

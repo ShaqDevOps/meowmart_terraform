@@ -1,0 +1,402 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeowMart</title>
+    <link href="{% static 'cart.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .nav-item {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-item.active {
+            background-color: #d3d3d3;
+            color: #a1a1a1;
+        }
+
+        .hover-opacity:hover {
+            opacity: 0.75;
+        }
+
+        .icon-custom {
+            font-size: 25px;
+        }
+
+        .cart-count {
+            width: 18px;
+            height: 18px;
+            bottom: -4px;
+            right: -4px;
+            font-size: 10px;
+            background-color: white;
+            color: black;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        /* Hide the dropdown initially */
+        #cart-dropdown,
+        #suggestions-dropdown {
+            display: none;
+        }
+
+        /* Show the dropdown when active */
+        #cart-dropdown.active,
+        #suggestions-dropdown.active {
+            display: block;
+        }
+
+        /* Mobile menu styles */
+        #mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            height: calc(100% - 70px);
+            width: 250px;
+            max-width: 80%;
+            background-color: #000;
+            color: #fff;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        #mobile-menu .nav-item {
+            display: block;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Dropdown item styles */
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .dropdown-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 8px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Search form */
+        #search-form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #search-form.active {
+            display: flex;
+        }
+
+        #search-input {
+            width: 50%;
+            max-width: 600px;
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #close-button {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: black;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Suggestions dropdown */
+        #suggestions-dropdown {
+            position: absolute;
+            top: 100%;
+            width: 50%;
+            max-width: 600px;
+            background-color: white;
+            color: black;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+        }
+
+        /* Change header background and text color */
+        .header-white {
+            background-color: white;
+            color: black;
+        }
+
+        .header-white .nav-item,
+        .header-white .icon-custom {
+            color: black;
+        }
+
+        .header-white .nav-item:hover,
+        .header-white .icon-custom:hover {
+            color: purple;
+        }
+
+        .search-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header class="header-white p-4 relative">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center flex-shrink-0">
+                <a href="{% url 'core:Home' %}">
+                    <img src="{% static 'logo.png' %}" alt="MeowMart Logo" class="h-16 w-18 md:h-24 md:w-26">
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="{% url 'core:Home' %}"
+                    class="text-black hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">Home</a>
+                <a href="{% url 'store:products_page' %}"
+                    class="text-black hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">Shop</a>
+                <a href="{% url 'pages:contact' %}"
+                    class="text-black hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">Contact
+                    Us</a>
+                <a href="{% url 'pages:faq' %}"
+                    class="text-black hover:text-purple-600 px-3 py-2 rounded-md text-lg font-medium nav-item">FAQs</a>
+            </nav>
+
+            <div class="flex items-center space-x-6">
+                <!-- Search Icon -->
+                <button id="search-icon-button" class="text-black focus:outline-none">
+                    <span class="icon is-medium icon-custom">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </button>
+                <!-- Person Icon for My Account -->
+                <a href="{% url 'core:profile' %}" class="text-black">
+                    <span class="icon is-medium icon-custom">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </a>
+                <!-- Cart Icon -->
+                <div class="relative">
+                    <button id="cart-icon-button" class="text-black relative focus:outline-none">
+                        <span class="icon is-medium icon-custom">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                        <span id="cart-count" class="cart-count absolute flex items-center justify-center">2</span>
+                    </button>
+
+                    <!-- Cart Dropdown -->
+                    <div id="cart-dropdown"
+                        class="absolute right-0 md:left-auto md:right-0 top-full mt-2 w-72 bg-white shadow-md z-20">
+                        <ul id="cart-items-list" class="p-2">
+                            <!-- Cart items will be dynamically inserted here with proper wrapping -->
+                        </ul>
+                        <div class="border-t border-gray-200">
+                            <a href="{% url 'store:cart-items-cart-page' cart_pk=cart_id %}"
+                                class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white text-center">View
+                                Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-black focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16m-16 6h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <form method="GET" action="{% url 'store:search' %}" id="search-form">
+            <input type="text" name="q" id="search-input" placeholder="Search products..." autocomplete="off">
+            <button type="submit" class="hidden"></button>
+            <span id="close-button">&times;</span>
+            <!-- Dropdown for Suggestions -->
+            <div id="suggestions-dropdown">
+                <div id="suggestions-list" class="p-2"></div>
+            </div>
+        </form>
+    </header>
+
+    <!-- MOBILE MENU ELEMENTS -->
+    <div id="mobile-menu">
+        <a href="{% url 'core:Home' %}"
+            class="nav-item block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-600">Home</a>
+        <a href="{% url 'store:products_page' %}"
+            class="nav-item block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-600">Shop</a>
+        <a href="{% url 'pages:contact' %}"
+            class="nav-item block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-600">Contact
+            Us</a>
+        <a href="{% url 'pages:faq' %}"
+            class="nav-item block px-3 py-2 rounded-md text-base font-medium text-white hover:text-purple-600">FAQs</a>
+    </div>
+
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <script>
+        function toggleMobileMenu(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('menu-overlay');
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+        document.getElementById('menu-overlay').addEventListener('click', toggleMobileMenu);
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.getElementById('cart-icon-button').addEventListener('click', function (event) {
+            event.stopPropagation();
+            const cartDropdown = document.getElementById('cart-dropdown');
+            cartDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function (event) {
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const cartButton = document.getElementById('cart-icon-button');
+            if (!cartButton.contains(event.target) && !cartDropdown.contains(event.target)) {
+                cartDropdown.classList.remove('active');
+            }
+        });
+
+        // Search Bar Suggestions
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchIconButton = document.getElementById('search-icon-button');
+            const searchForm = document.getElementById('search-form');
+            const searchInput = document.getElementById('search-input');
+            const suggestionsDropdown = document.getElementById('suggestions-dropdown');
+            const suggestionsList = document.getElementById('suggestions-list');
+            const closeButton = document.getElementById('close-button');
+
+            searchIconButton.addEventListener('click', function () {
+                searchForm.classList.add('active');
+                searchInput.focus();
+            });
+
+            closeButton.addEventListener('click', function () {
+                searchForm.classList.remove('active');
+                searchInput.value = '';
+            });
+
+            searchInput.addEventListener('input', function () {
+                const query = this.value;
+
+                if (query.length > 0) {
+                    fetch(`/store/search/suggestions/?q=${query}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            suggestionsList.innerHTML = '';
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    const suggestionItem = document.createElement('div');
+                                    suggestionItem.classList.add('dropdown-item');
+                                    const img = document.createElement('img');
+                                    img.src = item.image_url ? item.image_url : '{% static "default-product-image.jpg" %}';
+                                    img.alt = item.title;
+                                    img.classList.add('w-10', 'h-10', 'mr-2');
+                                    const text = document.createElement('span');
+                                    text.textContent = item.title;
+                                    suggestionItem.appendChild(img);
+                                    suggestionItem.appendChild(text);
+                                    suggestionItem.addEventListener('click', function () {
+                                        searchInput.value = item.title;
+                                        document.getElementById('search-form').submit();
+                                    });
+                                    suggestionsList.appendChild(suggestionItem);
+                                });
+                                suggestionsList.innerHTML += `<div class="dropdown-item search-item">Search for "${query}" <i class="fas fa-arrow-right"></i></div>`;
+                                suggestionsDropdown.classList.add('active');
+                            } else {
+                                suggestionsDropdown.classList.remove('active');
+                            }
+                        });
+                } else {
+                    suggestionsDropdown.classList.remove('active');
+                }
+            });
+
+            // Hide suggestions dropdown when clicking outside of it
+            document.addEventListener('click', function (event) {
+                if (!searchInput.contains(event.target) && !suggestionsDropdown.contains(event.target)) {
+                    suggestionsDropdown.classList.remove('active');
+                }
+            });
+
+            // Hide search form when clicking outside of it
+            document.addEventListener('click', function (event) {
+                if (!searchForm.contains(event.target) && !searchIconButton.contains(event.target)) {
+                    searchForm.classList.remove('active');
+                }
+            });
+
+            // Prevent form from hiding when interacting with suggestions
+            searchForm.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+
+            // Handle search item click
+            suggestionsDropdown.addEventListener('click', function (event) {
+                const target = event.target;
+                if (target.classList.contains('search-item')) {
+                    searchForm.submit();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

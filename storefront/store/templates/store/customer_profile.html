@@ -1,0 +1,34 @@
+{% load static %}
+{%include 'store/header_with_cart.html'%}
+
+    <div class="container mx-auto mt-8">
+        <div class="flex">
+            <!-- Sidebar for Navigation Tabs -->
+            <div class="w-1/4">
+                <ul class="border-r border-gray-200">
+                    <li id="myInfoTab" class="tab block py-2 px-4 hover:bg-gray-100">My Info</li>
+                    <li id="myOrdersTab" class="tab block py-2 px-4 hover:bg-gray-100">My Orders</li>
+                </ul>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="w-3/4 p-4" id="tabContent">
+                <main id = "main-content">
+                <h1 id = "username"></h1>
+              
+
+            </main>
+                <!-- Dynamic content will be loaded here based on the active tab -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Your footer -->
+    </footer>
+
+    <!-- Your scripts -->
+    <script src="{% static 'js/profile_tabs.js' %}"></script>
+    <script src="{% static 'js/TokenToGetUser.js' %}"></script>
+</body>
+</html>

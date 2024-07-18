@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=storefront.settings
+    volumes:
+      - static-data:/app/staticfiles
+      - media-data:/app/mediafiles
+
+  proxy:
+    build:
+      context: ./docker/proxy
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certbot-web:/vol/www
+      - proxy-dhparams:/vol/proxy
+      - certbot-certs:/etc/letsencrypt
+      - static-data:/vol/static
+      - media-data:/vol/media
+    environment:
+      - DOMAIN=${DOMAIN}
+
+  certbot:
+    build:
+      context: ./docker/certbot
+    command: echo "CertBot Started..."
+    environment:
+      - EMAIL=${ACME_DEFAULT_EMAIL}
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - certbot-web:/vol/www
+      - certbot-certs:/etc/letsencrypt/
+    depends_on:
+      - proxy
+
+volumes:
+  certbot-web:
+  proxy-dhparams:
+  certbot-certs:
+  static-data:
+  media-data:

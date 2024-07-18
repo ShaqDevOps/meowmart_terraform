@@ -1,0 +1,56 @@
+{% load static %}
+{% include 'store/header_with_tailwinds.html' %}
+
+<main class="flex flex-col items-center px-4 my-4">
+    <div class="bg-white p-2 sm:p-4 rounded-lg shadow-lg w-full max-w-4xl mx-auto">
+
+        <button onclick="history.back()"
+            class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 sm:py-2 sm:px-4 rounded mb-4 self-start">Go
+            Back</button>
+
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="w-full p-2 sm:p-4">
+                <img id="primary-image" src="{{ product.images.first.image.url }}" alt="{{ product.title }}"
+                    class="w-full h-auto object-contain rounded">
+                <div class="flex flex-wrap mt-2 sm:mt-4 justify-center">
+                    <!-- Thumbnails -->
+                    {% for image in product.images.all %}
+                    <img onclick="updatePrimaryImage(this)" src="{{ image.image.url }}"
+                        alt="Thumbnail for {{ product.title }}"
+                        class="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-full m-1 cursor-pointer hover:opacity-75">
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="w-full p-2 sm:p-4">
+                <div>
+                    <small class="uppercase text-gray-600 text-xs">{{ product.brand }}</small>
+                    <h1 class="text-xl sm:text-2xl font-bold my-2">{{ product.title }}</h1>
+                    <span class="text-lg sm:text-xl text-gray-900">{{ product.unit_price }}</span>
+                </div>
+                <div class="mt-2 sm:mt-4">
+                    <div class="flex items-center mb-4">
+                        <button type="button" onclick="changeQuantity(-1)"
+                            class="text-base sm:text-lg rounded-l bg-gray-200 px-2 sm:px-4 py-1 sm:py-2 hover:bg-gray-300">-</button>
+                        <input type="text" value="1" id="quantity-input"
+                            class="text-center bg-white px-2 sm:px-4 py-1 sm:py-2 w-12 sm:w-16">
+                        <button type="button" onclick="changeQuantity(1)"
+                            class="text-base sm:text-lg rounded-r bg-gray-200 px-2 sm:px-4 py-1 sm:py-2 hover:bg-gray-300">+</button>
+                    </div>
+                    <button class="w-full bg-purple-700 text-white px-2 sm:px-4 py-2 rounded hover:bg-purple-800"
+                        type="button"
+                        onclick="addToCart('{{ product.id }}', document.getElementById('quantity-input').value)">Add to
+                        Cart</button>
+                </div>
+                <div class="product-description mt-2 sm:mt-4">
+                    <p class="text-sm sm:text-base text-gray-700">{{ product.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'store/footer.html' %}
+
+
+</body>
+
+</html>

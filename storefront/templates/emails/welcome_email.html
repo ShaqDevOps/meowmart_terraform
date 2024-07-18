@@ -1,0 +1,44 @@
+<!-- meowmartdev/templates/email/welcome_email.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to MeowMart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <style>
+        .content a {
+            color: #00d1b2;
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="has-background-light">
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <div class="content has-text-centered">
+                    <figure class="image is-128x128 is-inline-block">
+                        <img src="cid:logo" alt="MeowMart Logo">
+                    </figure>
+                    <h1 class="title">Welcome to MeowMart, {{ user.username }}!</h1>
+                    <p>Thank you for signing up. We're glad to have you with us.</p>
+                    <p>If you have any questions or need assistance, feel free to contact us:</p>
+                    <p>Email: <a href="mailto:meowmart@shaqserver.com">meowmart@shaqserver.com</a></p>
+                    <p>
+                        <a class="button is-link" href="https://shaqserver.com">Visit Our Store</a>
+                    </p>
+                    <p>Best regards,<br>The MeowMart Team</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

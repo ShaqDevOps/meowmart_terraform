@@ -1,0 +1,16 @@
+{% extends 'core/base_profile.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+{% include 'core/profile_nav.html' %}
+<div class="container mx-auto mt-8">
+    <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-md">
+        <div class="p-8" id="tabContent">
+            <h2 class="text-3xl font-semibold mb-6 text-center">Welcome back, {{ request.user.first_name }}</h2>
+            <p class="text-center text-gray-300">Here you can manage your profile, view your orders, and update your
+                personal information.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

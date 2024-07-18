@@ -1,0 +1,80 @@
+{% extends 'core/base_profile.html' %}
+
+{% load static %}
+{% block title %}Change Info{% endblock %}
+
+{% block content %}
+{% include 'core/profile_nav.html' %}
+
+<style>
+    .custom-select {
+        background-color: white;
+        /* Dark background */
+        color: white;
+        /* White text */
+        border-color: #2d3748;
+        /* Border color */
+    }
+
+    .custom-select option {
+        background-color: #1a202c;
+        /* Dark background for options */
+        color: white;
+        /* White text for options */
+    }
+</style>
+
+<div class="container mx-auto mt-8 px-4">
+    <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h1 class="text-2xl font-semibold mb-6 text-center">Change Info</h1>
+        <form method="post" action="{% url 'core:change_details' %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">First Name:</label>
+                <input type="text" name="first_name" value="{{ user.first_name }}"
+                    class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Last Name:</label>
+                <input type="text" name="last_name" value="{{ user.last_name }}"
+                    class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input type="email" name="email" value="{{ user.email }}" disabled
+                    class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+                <input type="text" name="phone" value="{{ customer.phone }}"
+                    class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Street Address:</label>
+                <input type="text" name="street" value="{{ address.street }}"
+                    class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">City:</label>
+                <input type="text" name="city" value="{{ address.city }}" class="px-4 py-3 bg-gray-100 rounded w-full">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">State:</label>
+                {{ address_form.state }}
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded w-full">Update
+                    Details</button>
+            </div>
+        </form>
+        <div class="mt-4 flex flex-col sm:flex-row sm:justify-between">
+            <a href="{% url 'core:confirm_password' %}?next={% url 'core:change_email' %}"
+                class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded mb-2 sm:mb-0 sm:mr-2 text-center">
+                Change Email
+            </a>
+            <a href="{% url 'core:change_password' %}"
+                class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded text-center">Change Password</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

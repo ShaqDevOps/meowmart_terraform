@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+
+    <div class="container mx-auto mt-8" id="ordersContainer">
+        {% if orders %}
+        {% for order in orders %}
+        <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-md mb-4">
+            <div class="border-b pb-2 mb-4">
+                <h3 class="text-lg font-semibold">Order ID: {{ order.id }}</h3>
+                <p>Placed On: {{ order.placed_at|date:"F j, Y" }}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for item in order.items.all %}
+                <div class="bg-gray-100 p-2 border border-gray-200 rounded" data-quantity="{{ item.quantity }}"
+                    data-unit-price="{{ item.unit_price }}">
+                    <img src="{{ item.product.images.first.image.url|default:'path/to/default/image.jpg' }}"
+                        alt="{{ item.product.title }}" class="h-32 md:h-48 w-full object-cover rounded mb-2">
+                    <h4 class="text-sm font-semibold truncate">{{ item.product.title }}</h4>
+                    <p class="text-sm">Quantity: {{ item.quantity }}</p>
+                    <p class="text-sm">Price: ${{ item.unit_price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="border-t pt-4 mt-4 text-right">
+                <p class="text-lg font-semibold order-total">Total: ${{ order.total_price }}</p>
+                <!-- Assuming you have a method to calculate total price -->
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center" id="noOrders">
+            <p>No orders found.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/CartFunctions.js' %}"></script>
+    <script src="{% static 'js/CartVisual.js' %}"></script>
+    <script src="{% static 'js/profile_tabs.js' %}"></script> <!-- Include the profile_tabs.js -->
+
+</body>
+
+</html>

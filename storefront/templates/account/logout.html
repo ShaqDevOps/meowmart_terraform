@@ -1,0 +1,29 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>{% trans "Logout" %} - MeowMart</title>
+</head>
+
+<body class="has-background-light">
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+                        <div class="box">
+                            <h1 class="title">{% trans "You have signed out" %}</h1>
+                            <a class="button is-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

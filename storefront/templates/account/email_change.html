@@ -1,0 +1,35 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>{% trans "Change Email" %} - MeowMart</title>
+</head>
+
+<body class="has-background-light">
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+                        <form class="box" method="post" action="{% url 'account_change_email' %}">
+                            {% csrf_token %}
+                            <h1 class="title">{% trans "Change Email" %}</h1>
+                            {{ form.as_p }}
+                            <div class="field is-grouped is-grouped-right">
+                                <p class="control">
+                                    <button class="button is-link" type="submit">{% trans "Change Email" %}</button>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

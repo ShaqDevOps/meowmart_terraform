@@ -1,0 +1,72 @@
+{% load static %}
+
+<style>
+    /* Define the background image in a separate style block */
+    .background-image {
+        background-image: url('{% static "eating.jpg" %}');
+    }
+
+    /* Custom styles for the button */
+    .shop-button {
+        position: absolute;
+        top: 50%;
+        /* Adjust this value to position the button over the cat's head */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2rem 4rem;
+        /* Increase padding for larger button */
+        background-color: transparent;
+        /* Transparent background */
+        color: white;
+        font-size: 1.75rem;
+        /* Increase font size */
+        font-weight: bold;
+        border: 4px solid white;
+        /* Heavy border */
+        border-radius: 50px;
+        /* Make button rounder */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        /* Heavy shadow */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .shop-button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        /* Slightly opaque background on hover */
+        color: white;
+        /* Keep text color white */
+    }
+
+    @media (max-width: 768px) {
+        .shop-button {
+            font-size: 1.25rem;
+            padding: 1.5rem 3rem;
+            border-radius: 25px;
+            /* Adjust border-radius for mobile */
+        }
+    }
+</style>
+
+<body class="bg-gray-50"> <!-- This sets the default background color -->
+
+    {% include 'store/header_with_tailwinds.html' %}
+
+    <!-- Background Image Placeholder -->
+    <div class="relative min-h-screen bg-cover bg-no-repeat bg-center background-image">
+        <!-- The rest of your page content goes here -->
+        <div class="relative z-10 min-h-screen flex flex-col justify-between">
+            <div class="container mx-auto px-6 py-12 text-center">
+                <h1 class="text-5xl font-bold text-white mb-6">Welcome to MeowMart</h1> <!-- Adjusted font size -->
+                <p class="text-xl text-white mb-6">Your one-stop shop for all things feline! Right Here. Right Meow.</p>
+                <!-- Adjusted font size -->
+                <!-- Additional content -->
+                <a href="{% url 'store:products_page' %}" class="shop-button">Shop</a>
+            </div>
+            <!-- Footer -->
+            {% include 'store/footer.html' %}
+        </div>
+    </div>
+
+</body>
+
+</html>

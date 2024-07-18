@@ -1,0 +1,79 @@
+/* product_page.css */
+@import 'core/Index.css'; /* Importing styles from homepage.css */
+
+body {
+    /* Keep the body styles consistent with the homepage */
+    background-color: #121212; /* Assuming you want the dark theme */
+    color: #ffffff;
+}
+
+h1 {
+    color: #ffffff; /* Adjust if you have a different color scheme */
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Create a responsive grid */
+    gap: 1rem; /* Space between items */
+    padding: 1rem;
+    justify-items: center;
+    align-items: start; /* Align items to the start of each cell */
+}
+
+.product-item {
+    position: relative; /* Add this to create a positioning context for the price */
+    width: 100%; /* Full width of the grid column */
+    background: #333; /* Slightly darker background for the product card */
+    border: none; /* Remove border if present */
+    border-radius: 10px; /* Rounded corners for the card */
+    overflow: hidden; /* Ensures nothing spills out of the card */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+    transition: transform 0.3s ease; /* Smooth transformation on hover */
+    display: flex; /* Turn the product item into a flex container */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Distributes space between and around flex items */
+    padding: 1rem; /* Add padding for spacing inside the card */
+}
+
+.price {
+    background: #76c893; /* Highlight color for price */
+    color: #121212; /* Text color that stands out on the highlight */
+    padding: 0.25rem 0.5rem; /* Padding inside the price tag */
+    display: block; /* Changed from inline-block to block */
+    position: static; /* Default value to be part of the normal document flow */
+    bottom: 3rem; /* Position from the bottom of the product item */
+    right: 1rem; /* Position from the right of the product item */
+    border-radius: 5px; /* Rounded corners for the price tag */
+    z-index: 10; /* Ensures it's above other content */
+    margin-top: 0.5rem; /* Adjust as needed to create space above the price */
+    align-self: start; /* Align price to the start (left) of the flex container */
+}
+
+
+
+.product-item:hover {
+    transform: translateY(-5px); /* Lift card slightly on hover */
+}
+
+.product-item a {
+    color: #ffffff; /* Adjust if you have a different color scheme */
+    text-decoration: none; /* No underlines on the links */
+}
+
+.product-item img {
+    max-width: 100%; /* Ensure image takes up the card width */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any inline spacing */
+}
+
+.product-item h3 {
+    margin: 0.5rem; /* Space around the title */
+}
+
+
+.primary-image {
+    max-width: 500px; /* or any other value */
+    height: auto; /* to maintain the aspect ratio */
+}

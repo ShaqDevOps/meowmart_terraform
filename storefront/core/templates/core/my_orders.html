@@ -1,0 +1,49 @@
+{% extends 'core/base_profile.html' %}
+
+{% load static %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+{% include 'core/profile_nav.html' %}
+
+<div class="container mx-auto mt-8 px-4">
+    <h1 class="text-2xl font-semibold mb-6 text-center">My Orders</h1>
+    {% if orders_with_totals %}
+    {% for order_with_totals in orders_with_totals %}
+    <div class="bg-white p-6 border border-gray-200 rounded-lg shadow-md mb-4">
+        <h2 class="text-xl font-semibold text-center">Order Number: {{ order_with_totals.order.id }}</h2>
+        <h2 class="text-xl font-semibold text-center mt-2">
+            Order placed on: {{ order_with_totals.order.placed_at|date:"F j, Y" }}
+        </h2>
+        <p class="text-lg text-center text-gray-700 mt-2">Total: ${{ order_with_totals.order_total }}</p>
+        <h3 class="text-lg font-semibold mt-6">Items:</h3>
+        <ul class="list-disc list-inside">
+            {% for item in order_with_totals.items %}
+            <li class="flex items-center mb-4 bg-gray-100 p-4 rounded-lg shadow-sm">
+                {% with item.product.images.all|first as first_image %}
+                {% if first_image %}
+                <img src="{{ first_image.image.url }}" alt="{{ item.product.title }}"
+                    class="w-16 h-16 object-cover rounded mr-4">
+                {% else %}
+                <img src="{% static 'default-product-image.jpg' %}" alt="Default Image"
+                    class="w-16 h-16 object-cover rounded mr-4">
+                {% endif %}
+                {% endwith %}
+                <div>
+                    <a href="{% url 'store:products-detail' item.product.id %}"
+                        class="font-semibold text-blue-500 hover:underline">{{ item.product.title }}</a>
+                    <p>Quantity: {{ item.quantity }} - Unit Price: ${{ item.unit_price }}</p>
+                    <p class="font-semibold">Item Total: ${{ item.total_price|floatformat:2 }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-center">No orders found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

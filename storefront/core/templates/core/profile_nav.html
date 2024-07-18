@@ -1,0 +1,14 @@
+{% load static %}
+<nav>
+        <ul class="flex justify-center space-x-4 p-4 rounded-t-lg">
+                <li class="tab py-2 px-4 rounded-t hover:bg-gray-700 cursor-pointer">
+                        <a href="{% url 'core:my_info' %}" class="text-black">My Info</a>
+                </li>
+                <li class="tab py-2 px-4 rounded-t hover:bg-gray-700 cursor-pointer">
+                        <a href="{% url 'core:my_orders' %}" class="text-black">My Orders</a>
+                </li>
+                <li class="tab py-2 px-4 rounded-t hover:bg-gray-700 cursor-pointer">
+                        <a href="{% url 'core:logout' %}" class="text-black">Sign Out</a>
+                </li>
+        </ul>
+</nav>

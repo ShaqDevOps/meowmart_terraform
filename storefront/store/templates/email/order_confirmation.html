@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    <title>Order Confirmation - MeowMart</title>
+</head>
+
+<body class="has-background-light">
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <h1 class="title">Thank you for your order, {{ order.customer.user.first_name }}!</h1>
+                <p class="subtitle">Order ID: {{ order.id }}</p>
+                <p><strong>Order Date:</strong> {{ order.placed_at }}</p>
+                <p><strong>Items:</strong></p>
+                <ul>
+                    {% for item in order.items.all %}
+                    <!-- <li class="media">
+                        {% if item.product.images.first %}
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                <img src="{{ item.product.images.first.image.url }}"
+                                    alt="{{ item.product.title }} image">
+                            </p>
+                        </figure>
+                        {% endif %}
+                        <div class="media-content"> -->
+                    <p>
+                        <strong>{{ item.product.title }}</strong> - {{ item.quantity }} x ${{ item.unit_price }}
+                    </p>
+            </div>
+            </li>
+            {% endfor %}
+            </ul>
+            <p class="has-text-weight-bold">Total: ${{ order.get_total }}</p>
+            <p>We will notify you once your order is shipped.</p>
+        </div>
+        </div>
+    </section>
+
+    <footer class="footer has-text-centered">
+        <div class="content has-text-grey">
+            <p>© 2023 MeowMart</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!-- {% load static %}
+{% include 'store/header_with_tailwinds.html' %}
+
+<div class="container mx-auto mt-8">
+    <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-md">
+        <ul class="flex border-b">
+            <li id="myInfoTab" class="tab py-2 px-4 mr-2 rounded-t hover:bg-gray-100 cursor-pointer">My Info</li>
+            <li id="myOrdersTab" class="tab py-2 px-4 mr-2 rounded-t hover:bg-gray-100 cursor-pointer">My Orders</li>
+            <li id="signOutTab" class="tab py-2 px-4 rounded-t hover:bg-gray-100 cursor-pointer">Sign Out</li>
+        </ul>
+
+        <div class="p-8" id="tabContent">
+            <h2 class="text-2xl font-semibold mb-4">Welcome back, {{ request.user.first_name }}</h2>
+        </div>
+    </div>
+</div>
+
+<footer></footer>
+
+<script>
+    var myOrdersUrl = "{% url 'store:my_orders' %}";
+    var myInfoUrl = "{% url 'core:my_info' %}";
+    var changePasswordUrl = "{% url 'core:change_password' %}";
+    var changeDetailsUrl = "{% url 'core:change_details' %}";
+    var signOutUrl = "{% url 'core:logout' %}";
+</script>
+
+<script src="{% static 'js/profile_tabs.js' %}"></script>
+<script src="{% static 'js/CartFunctions.js' %}"></script>
+<script src="{% static 'js/CartVisual.js' %}"></script>
+</body>
+
+</html> -->
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Profile{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    {% include 'store/header_with_tailwinds.html' %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer></footer>
+    <!-- <script src="{% static 'js/profile_tabs.js' %}"></script> -->
+    <script src="{% static 'js/CartFunctions.js' %}"></script>
+    <script src="{% static 'js/CartVisual.js' %}"></script>
+</body>
+
+</html>

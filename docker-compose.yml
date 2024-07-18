@@ -1,0 +1,42 @@
+# version: "3.9"
+
+# services:
+#   app:
+#     build:
+#       context: .  # Assuming the Dockerfile is in the root of your project
+#     command: sh -c "python manage.py runserver 0.0.0.0:9000"
+#     volumes:
+#       - .:/app  # Mapping the entire project directory to /app in the container
+#     ports:
+#       - "9000:9000"
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=storefront.storefront.settings.dev  # Set the correct Django settings module
+#       - SECRET_KEY=${SECRET_KEY}  # Update the variable name to match the .env and Django settings
+#       - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}  # Ensure this matches the .env file
+#       - RDS_DB_NAME=${RDS_DB_NAME}  # MySQL database name
+#       - RDS_USERNAME=${RDS_USERNAME}  # MySQL database user
+#       - RDS_PASSWORD=${RDS_PASSWORD}  # MySQL database password
+#       - RDS_HOSTNAME=${RDS_HOSTNAME}  # MySQL database host
+#       - RDS_PORT=${RDS_PORT}  # MySQL database port (typically 3306)
+
+
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .  # Assuming the Dockerfile is in the root of your project
+    command: sh -c "python manage.py runserver 0.0.0.0:9000"
+    # volumes:
+    #   - .:/app  # Mapping the entire project directory to /app in the container
+    ports:
+      - "9000:9000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=storefront.dev  # Set the correct Django settings module
+      - SECRET_KEY=${SECRET_KEY}  # Update the variable name to match the .env and Django settings
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}  # Ensure this matches the .env file
+      - RDS_DB_NAME=${RDS_DB_NAME}  # MySQL database name
+      - RDS_USERNAME=${RDS_USERNAME}  # MySQL database user
+      - RDS_PASSWORD=${RDS_PASSWORD}  # MySQL database password
+      - RDS_HOSTNAME=${RDS_HOSTNAME}  # MySQL database host
+      - RDS_PORT=${RDS_PORT}  # MySQL database port (typically 3306)

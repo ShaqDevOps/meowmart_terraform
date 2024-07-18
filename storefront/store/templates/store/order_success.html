@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success - MeowMart</title>
+</head>
+<body>
+    {% include 'store/header_without_cart_without_signin.html' %}
+
+    <!-- Container to display order details -->
+    <div id="orderDetailsContainer" class="container mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-3xl font-semibold mb-2 text-center">Thank you for your order!</h2>
+        <p id="order_id" class="text-lg text-center">Your order number is <strong>{{ order.id }}</strong>.</p>
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-4">Order Summary</h3>
+            <ul id="orderItemsList">
+                {% for item in order.items %}
+                    <li class="flex justify-between border-b-2 py-2">
+                        <span class="font-semibold">{{ item.product.title }} (x{{ item.quantity }})</span>
+                        <span>${{ item.unit_price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="mt-4 text-right font-semibold">Total: $<span id="orderTotal">{{ order.total }}</span></p>
+        </div>
+        <div class="mt-6 text-center">
+            <a href="{% url 'store:products_page' %}" class="px-6 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 transition duration-300">Continue Shopping</a>
+        </div>
+    </div>
+
+    {% include 'store/footer.html' %}
+
+
+
+    
+</body>
+</html>

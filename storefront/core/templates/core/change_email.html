@@ -1,0 +1,26 @@
+{% extends 'core/base_profile.html' %}
+
+{% load static %}
+{% block title %}Change Email{% endblock %}
+
+{% block content %}
+{% include 'core/profile_nav.html' %}
+
+<div class="container mx-auto mt-8 px-4">
+    <div class="bg-white p-4 border border-gray-200 rounded-lg shadow-md max-w-2xl mx-auto">
+        <h1 class="text-2xl font-semibold mb-6 text-center">Change Email</h1>
+        <form method="post" action="{% url 'core:change_email' %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">New Email:</label>
+                <input type="email" name="email" value="{{ form.email.value }}"
+                    class="px-4 py-3 bg-gray-100 rounded w-full" required>
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded w-full">Change
+                    Email</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

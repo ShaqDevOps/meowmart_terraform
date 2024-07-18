@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'store/header_with_tailwinds.html' %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        .bubble {
+            background: rgba(255, 255, 255, 0.1);
+            /* Transparent background */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.8);
+            /* White shadow */
+        }
+
+        .bubble a {
+            color: #007bff;
+        }
+
+        .content-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-content {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 15px;
+            background: #ffffff !important;
+            /* Explicitly set background to white */
+            color: #000000 !important;
+            /* Set text color to black */
+            box-shadow: 5px 5px 10px rgba(152, 152, 153, 0.8);
+            /* Add shadow */
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: #000000 !important;
+            /* Set placeholder text color to black */
+        }
+
+        .form-field textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        .button.is-primary {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        body {
+            background-color: #ffffff;
+            /* Set body background to white */
+            color: #000000;
+            /* Set body text color to black */
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1b1b1b;
+                /* Dark mode background */
+                color: #ffffff;
+                /* Dark mode text color */
+            }
+
+            .form-field input,
+            .form-field textarea {
+                background: #ffffff !important;
+                /* Explicitly set background to white */
+                color: #000000 !important;
+                /* Dark mode input text color */
+                box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.2);
+                /* Add shadow */
+            }
+
+            .form-field input::placeholder,
+            .form-field textarea::placeholder {
+                color: #000000 !important;
+                /* Dark mode placeholder text color */
+            }
+
+            .button.is-primary {
+                background-color: #4caf50;
+                /* Dark mode button color */
+            }
+        }
+    </style>
+</head>
+{% load form_tags %}
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="content-center">
+                <div class="form-content">
+                    <h1 class="title has-text-centered">Contact Us</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-field">
+                            <input type="text" name="name" placeholder="Name">
+                        </div>
+
+                        <div class="form-field">
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-field">
+                            <input type="tel" name="phone_number" placeholder="Phone Number">
+                        </div>
+
+                        <div class="form-field">
+                            <textarea name="comment" placeholder="Message"></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <button class="button is-primary" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+{% include 'store/footer.html' %}
+
+</html>
