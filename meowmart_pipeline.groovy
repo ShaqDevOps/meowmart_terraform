@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        GIT_REPO = 'git@github.com:ShaqDevOps/meowmartdev.git'
+        GIT_REPO = 'git@github.com:ShaqDevOps/meowmart_terraform.git'
         MARKER_FILE = "${env.WORKSPACE}/.first_run_marker"
     }
 
